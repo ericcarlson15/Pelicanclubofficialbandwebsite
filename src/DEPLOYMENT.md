@@ -90,14 +90,31 @@ Vercel auto-detects React apps. A `vercel.json` file is included to ensure prope
 
 If your deployment fails with errors like "patch-package command not found" or "npm install failed":
 
-1. **Check the vercel.json file is present** - It should be in your project root
-2. **Try redeploying** - Sometimes the first deploy fails but the second works
-3. **Check Build Settings in Vercel:**
-   - Go to your project → Settings → General
-   - Build Command: `npm run build`
-   - Install Command: `npm install --legacy-peer-deps`
-   - Output Directory: `dist`
-4. **Redeploy** - Go to Deployments tab → Click the three dots on the failed deployment → Redeploy
+**SOLUTION - Override Build Settings in Vercel:**
+
+1. **Go to your Vercel project**
+2. **Click Settings → General**
+3. **Scroll to "Build & Development Settings"**
+4. **Click "Override" next to each setting and enter:**
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Install Command:** `npm install --force`
+   - **Output Directory:** `dist`
+5. **Click Save**
+6. **Go to Deployments tab**
+7. **Click on the failed deployment → Three dots (...) → Redeploy**
+
+**Alternative Method - Use Netlify Instead:**
+If Vercel continues to fail, Netlify handles Figma Make projects better:
+1. Go to [netlify.com](https://netlify.com)
+2. Sign up with GitHub
+3. Click "Add new site" → "Import an existing project"
+4. Connect to GitHub and select your repository
+5. Build settings:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+6. Click Deploy
+7. Usually works on first try! ✅
 
 ### Custom Domain (Optional):
 - In Vercel dashboard → Settings → Domains
