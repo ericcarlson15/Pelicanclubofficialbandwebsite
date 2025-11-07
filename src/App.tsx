@@ -14,6 +14,7 @@ import pelicanClubFilmsHeader from 'figma:asset/7e4bfc54b0d4688d9666622ac8c7c478
 import pelicanMemberImageBlue from 'figma:asset/f1a5abaebda838b0ec877b5e31ddddda969b182c.png';
 import pelicanMemberImagePink from 'figma:asset/579de5ffd535f61b758f2b36fe174e0b7a68f4e2.png';
 import pelicanOSLogo from 'figma:asset/8cd4d39790de8d33778d9d345d9c0bba09b12f74.png';
+import sodaCanIcon from 'figma:asset/bdacbb8efdcfaf864d9d40a0cc702a4444c33bf4.png';
 
 export default function App() {
   const [isMobile, setIsMobile] = useState(false);
@@ -32,6 +33,18 @@ export default function App() {
     window.addEventListener('resize', checkMobile);
     
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Set favicon
+  useEffect(() => {
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/png';
+    link.rel = 'icon';
+    link.href = sodaCanIcon;
+    document.head.appendChild(link);
+
+    // Also set the page title
+    document.title = 'PelicanClubOS';
   }, []);
 
   // Open initial windows on load
