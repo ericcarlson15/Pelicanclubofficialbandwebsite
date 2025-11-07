@@ -84,7 +84,20 @@ Once set up, updating is SUPER easy:
 No complicated commands needed! 🎉
 
 ### Configuration:
-No special configuration needed! Vercel auto-detects React apps.
+Vercel auto-detects React apps. A `vercel.json` file is included to ensure proper deployment.
+
+### Troubleshooting Build Errors:
+
+If your deployment fails with errors like "patch-package command not found" or "npm install failed":
+
+1. **Check the vercel.json file is present** - It should be in your project root
+2. **Try redeploying** - Sometimes the first deploy fails but the second works
+3. **Check Build Settings in Vercel:**
+   - Go to your project → Settings → General
+   - Build Command: `npm run build`
+   - Install Command: `npm install --legacy-peer-deps`
+   - Output Directory: `dist`
+4. **Redeploy** - Go to Deployments tab → Click the three dots on the failed deployment → Redeploy
 
 ### Custom Domain (Optional):
 - In Vercel dashboard → Settings → Domains
