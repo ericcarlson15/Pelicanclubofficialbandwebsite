@@ -105,16 +105,24 @@ If your deployment fails with errors like "patch-package command not found" or "
 7. **Click on the failed deployment → Three dots (...) → Redeploy**
 
 **Alternative Method - Use Netlify Instead:**
-If Vercel continues to fail, Netlify handles Figma Make projects better:
+If Vercel continues to fail, try Netlify with these EXACT settings:
+
 1. Go to [netlify.com](https://netlify.com)
 2. Sign up with GitHub
 3. Click "Add new site" → "Import an existing project"
 4. Connect to GitHub and select your repository
-5. Build settings:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-6. Click Deploy
-7. Usually works on first try! ✅
+5. **Build settings (IMPORTANT - Override the defaults):**
+   - **Build command:** `npm install --force && npm run build`
+   - **Publish directory:** `dist`
+   - **Base directory:** Leave blank
+6. Click "Deploy site"
+7. **Wait 3-5 minutes** for the build to complete
+
+The `netlify.toml` file in your project should automatically configure this, but manual override ensures it works! ✅
+
+**If build still fails:**
+- Check the deploy log for the specific error
+- The most common issue is the build command - make sure it includes `npm install --force &&` before `npm run build`
 
 ### Custom Domain (Optional):
 - In Vercel dashboard → Settings → Domains
