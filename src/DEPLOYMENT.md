@@ -1,268 +1,194 @@
 # Deployment Guide for Pelican Club OS
 
-## Overview
-Your Pelican Club Macintosh site is built with React and can be deployed to various hosting platforms. Here are instructions for the most popular options.
+## ⚠️ IMPORTANT - Build Files Added!
+
+Your project now includes all necessary build configuration files:
+- `package.json` - Dependencies and build scripts
+- `vite.config.ts` - Vite bundler configuration
+- `tsconfig.json` - TypeScript configuration
+- `index.html` - Entry HTML file
+- `src/main.tsx` - React entry point
+- `netlify.toml` - Netlify configuration
+
+**You MUST push these new files to GitHub before deploying!**
 
 ---
 
-## Option 1: Vercel (Recommended - Easiest)
-
-Vercel is perfect for React apps and offers the simplest deployment process.
+## Quick Start - Netlify (Recommended)
 
 ### Steps:
 
-1. **Export your code from Figma Make**
-   - Click the "Export" button in Figma Make
-   - Choose "Download as ZIP"
-   - Unzip the folder on your computer
-
-2. **Create a GitHub account (if you don't have one)**
-   - Go to [github.com](https://github.com)
-   - Click "Sign up"
-   - Choose a username, enter your email, and create a password
-   - Verify your email address
-
-3. **Upload your code to GitHub**
+1. **Push ALL new files to GitHub**
    
-   **EASIEST METHOD - Use GitHub Website (No coding required!):**
+   a. Go to your GitHub repository
    
-   a. Log into GitHub
+   b. Click "Add file" → "Upload files"
    
-   b. Click the "+" icon in the top right → "New repository"
+   c. Drag and drop these new files:
+      - `package.json`
+      - `vite.config.ts`
+      - `tsconfig.json`
+      - `tsconfig.node.json`
+      - `index.html`
+      - `netlify.toml`
+      - The entire `src` folder (contains main.tsx)
    
-   c. Name your repository (e.g., "pelican-club-site")
+   d. Scroll down and click "Commit changes"
+
+2. **Deploy to Netlify**
    
-   d. Keep it Public (or Private if you prefer)
+   a. Go to [netlify.com](https://netlify.com)
    
-   e. Click "Create repository"
+   b. Click "Sign up" → Choose "GitHub" (easiest option)
    
-   f. On the next page, click "uploading an existing file"
+   c. Authorize Netlify to access your GitHub
    
-   g. Drag and drop ALL your project files into the upload box
-      - Important: Upload the actual files, not the folder containing them
-      - Make sure to include App.tsx, package.json, components folder, etc.
+   d. Click "Add new site" → "Import an existing project"
    
-   h. Scroll down and click "Commit changes"
+   e. Click "Deploy with GitHub"
    
-   i. Done! Your code is now on GitHub ✅
-
-4. **Create a Vercel account**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "Sign Up"
-   - Choose "Continue with GitHub" (IMPORTANT: Use this option!)
-   - Authorize Vercel to access your GitHub
-
-5. **Deploy your project**
+   f. Find and select your repository (e.g., "pelican-club-site")
    
-   a. In Vercel, click "Add New" → "Project"
+   g. **Build settings:**
+      - **Build command:** `npm install && npm run build`
+      - **Publish directory:** `dist`
+      - **Base directory:** (leave blank)
    
-   b. You'll see a list of your GitHub repositories
+   h. Click "Deploy site"
    
-   c. Find "pelican-club-site" (or whatever you named it) and click "Import"
+   i. **Wait 3-5 minutes** - You can watch the build log
    
-   d. Vercel will auto-detect it's a React app - don't change anything!
+   j. Once complete, your site will be live! 🎉
+      - URL will be something like: `https://random-name-123456.netlify.app`
    
-   e. Click "Deploy"
-   
-   f. Wait 1-2 minutes while it builds...
-   
-   g. 🎉 Done! Your site is live at `yourproject.vercel.app`
-   
-   h. Click "Visit" to see your live site!
+   k. **Customize your URL:**
+      - Go to Site settings → Domain management → Options
+      - Click "Edit site name"
+      - Change to something like: `pelican-club-os`
+      - Your new URL: `https://pelican-club-os.netlify.app`
 
-### Updating Your Site Later:
-
-Once set up, updating is SUPER easy:
-
-1. Go to your GitHub repository
-2. Click on the file you want to edit
-3. Click the pencil icon (Edit)
-4. Make your changes
-5. Click "Commit changes"
-6. Vercel automatically rebuilds and deploys! (takes 1-2 min)
-
-No complicated commands needed! 🎉
-
-### Configuration:
-Vercel auto-detects React apps. A `vercel.json` file is included to ensure proper deployment.
-
-### Troubleshooting Build Errors:
-
-If your deployment fails with errors like "patch-package command not found" or "npm install failed":
-
-**SOLUTION - Override Build Settings in Vercel:**
-
-1. **Go to your Vercel project**
-2. **Click Settings → General**
-3. **Scroll to "Build & Development Settings"**
-4. **Click "Override" next to each setting and enter:**
-   - **Framework Preset:** Vite
-   - **Build Command:** `npm run build`
-   - **Install Command:** `npm install --force`
-   - **Output Directory:** `dist`
-5. **Click Save**
-6. **Go to Deployments tab**
-7. **Click on the failed deployment → Three dots (...) → Redeploy**
-
-**Alternative Method - Use Netlify Instead:**
-If Vercel continues to fail, try Netlify with these EXACT settings:
-
-1. Go to [netlify.com](https://netlify.com)
-2. Sign up with GitHub
-3. Click "Add new site" → "Import an existing project"
-4. Connect to GitHub and select your repository
-5. **Build settings (IMPORTANT - Override the defaults):**
-   - **Build command:** `npm install --force && npm run build`
-   - **Publish directory:** `dist`
-   - **Base directory:** Leave blank
-6. Click "Deploy site"
-7. **Wait 3-5 minutes** for the build to complete
-
-The `netlify.toml` file in your project should automatically configure this, but manual override ensures it works! ✅
-
-**If build still fails:**
-- Check the deploy log for the specific error
-- The most common issue is the build command - make sure it includes `npm install --force &&` before `npm run build`
-
-### Custom Domain (Optional):
-- In Vercel dashboard → Settings → Domains
-- Add your custom domain (costs ~$10-15/year from domain registrars)
-
-### Cost: **FREE** for hobby projects ✅
+✅ **This should work perfectly!**
 
 ---
 
-## Option 2: Neocities
+## Alternative - Vercel
 
-Yes, you **can** use this on Neocities, but it requires a build step first.
+If you prefer Vercel:
 
-### Why the extra step?
-Neocities hosts static HTML/CSS/JS files. Your React app needs to be "built" (compiled) into static files first.
+1. **Push all files to GitHub** (same as above)
 
-### Steps:
+2. Go to [vercel.com](https://vercel.com) → Sign up with GitHub
 
-1. **Build your React app**
-   ```bash
-   npm install
-   npm run build
-   ```
-   This creates a `dist` or `build` folder with static files.
+3. Click "Add New" → "Project"
 
-2. **Upload to Neocities**
-   - Log into your Neocities account
-   - Go to your site's dashboard
-   - Upload **all files** from the `dist`/`build` folder:
-     - `index.html`
-     - `assets/` folder (contains all JS, CSS, images)
-   
-   **Important:** Upload the contents of the build folder, not the folder itself!
+4. Select your repository
 
-3. **Configure paths (if needed)**
-   - Neocities URLs work differently than local development
-   - You may need to adjust asset paths if images don't load
-   - Your Figma assets will need to be in the same folder structure
+5. **Framework Preset:** Select "Vite"
 
-### Neocities Limitations:
-- **Max file size:** 50MB total for free tier
-- **No automatic deployments:** You must manually rebuild and reupload for changes
-- **No server-side features:** Only static content (your app is already static, so this is fine!)
+6. Click "Deploy"
 
-### Build Command for Neocities:
-```bash
-# Make sure base path is set correctly
-npm run build -- --base=/
+7. Wait for build to complete
+
+---
+
+## Troubleshooting
+
+### Build fails with "dist not found" or "command not found"
+**Solution:** Make sure you uploaded ALL the new build files to GitHub:
+- package.json
+- vite.config.ts
+- tsconfig.json
+- index.html
+- src/main.tsx
+
+### Site deploys but shows blank page
+**Solution:** Check the build logs for errors. Most common issues:
+- Missing image files (make sure all images are uploaded)
+- Missing audio files (make sure .mp3 files are uploaded)
+- Incorrect file paths (check that all imports use correct paths)
+
+### Build fails with dependency errors
+**Solution:** In Netlify/Vercel settings, make sure build command is:
 ```
+npm install && npm run build
+```
+Not just `npm run build`
 
-### Cost: **FREE** (up to 50MB) ✅
-
----
-
-## Option 3: Netlify (Alternative to Vercel)
-
-Very similar to Vercel, great alternative option.
-
-### Steps:
-1. Go to [netlify.com](https://netlify.com)
-2. Sign up
-3. Drag and drop your project folder OR connect to GitHub
-4. Deploy!
-
-### Cost: **FREE** for hobby projects ✅
+### Site works on desktop but not mobile
+The site should automatically detect mobile and switch to mobile layout. If it doesn't:
+- Clear your browser cache
+- Try in incognito/private mode
+- Make sure all files were uploaded correctly
 
 ---
 
-## Option 4: GitHub Pages
+## Adding Your Soda Can Favicon
 
-Free hosting directly from GitHub.
-
-### Steps:
-1. Push code to GitHub repository
-2. Install GitHub Pages package:
-   ```bash
-   npm install gh-pages --save-dev
-   ```
-3. Add to `package.json`:
-   ```json
-   {
-     "homepage": "https://yourusername.github.io/repo-name",
-     "scripts": {
-       "predeploy": "npm run build",
-       "deploy": "gh-pages -d dist"
-     }
-   }
-   ```
-4. Deploy:
-   ```bash
-   npm run deploy
-   ```
-
-### Cost: **FREE** ✅
+1. Save your soda can icon as `soda-can-icon.png`
+2. Upload it to the `/public` folder in your GitHub repo
+3. The site will automatically use it as the favicon
 
 ---
 
-## Comparison Chart
+## Updating Your Site
 
-| Platform | Ease of Use | Auto-Deploy | Custom Domain | Cost |
-|----------|-------------|-------------|---------------|------|
-| **Vercel** | ⭐⭐⭐⭐⭐ | ✅ Yes | ✅ Free | FREE |
-| **Netlify** | ⭐⭐⭐⭐⭐ | ✅ Yes | ✅ Free | FREE |
-| **GitHub Pages** | ⭐⭐⭐⭐ | ✅ Yes | ✅ Free | FREE |
-| **Neocities** | ⭐⭐⭐ | ❌ Manual | ✅ Paid only | FREE (50MB) |
+When you want to make changes:
+
+1. Make changes in Figma Make
+2. Export the updated files
+3. Upload the changed files to GitHub (same process as before)
+4. Netlify/Vercel will automatically rebuild and deploy!
 
 ---
 
-## Recommended Choice
+## Custom Domain (Optional)
 
-**For your Pelican Club site: Use Vercel**
+Want to use your own domain like `pelicanclub.com`?
 
-Why?
-- Easiest setup (literally 2 clicks if using GitHub)
-- Automatic deployments when you update code
-- Free custom domains
-- Free SSL certificates
-- Excellent performance
-- Perfect for React apps
+### On Netlify:
+1. Go to Site settings → Domain management
+2. Click "Add custom domain"
+3. Follow the instructions to update your domain's DNS settings
+4. Usually takes 24-48 hours to activate
+
+### On Vercel:
+1. Go to Project settings → Domains
+2. Click "Add"
+3. Enter your domain
+4. Follow DNS configuration instructions
 
 ---
 
 ## Need Help?
 
-If you encounter any issues:
-1. Check that all images are in the correct folders
-2. Ensure all imports are using relative paths
-3. Test locally with `npm run dev` before deploying
-4. Check the platform's build logs for errors
+Common issues and solutions:
+
+**Q: Build is taking forever**
+A: First build can take 3-5 minutes. Be patient!
+
+**Q: Got an error about "patch-package"**
+A: Make sure you uploaded `package.json` and it contains the scripts section
+
+**Q: Site shows 404**
+A: Make sure the publish directory is set to `dist` (not `build` or `public`)
+
+**Q: Images aren't loading**
+A: Make sure you uploaded all image files to GitHub. Check the exact file paths in your code.
+
+**Q: Audio player isn't working**
+A: Make sure all .mp3 files are uploaded. Check browser console for errors.
 
 ---
 
-## What You'll Need
+## Success Checklist
 
-Before deploying anywhere:
+Before deploying, make sure you have:
 
-1. **A GitHub account** (free - see steps above)
-2. **All project files** from Figma Make
-3. **Image assets** properly organized
+- ✅ All source files uploaded to GitHub
+- ✅ ALL new build configuration files uploaded (package.json, vite.config.ts, etc.)
+- ✅ All images and audio files uploaded
+- ✅ Build command set to: `npm install && npm run build`
+- ✅ Publish directory set to: `dist`
+- ✅ Waited 3-5 minutes for initial build
 
----
-
-**Your site is ready to go live! Choose your platform and deploy! 🚀**
+Once these are all checked, your site should deploy successfully! 🚀
