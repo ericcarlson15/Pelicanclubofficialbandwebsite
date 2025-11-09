@@ -75,7 +75,7 @@ Your project now includes all necessary build configuration files:
 
 If you prefer Vercel:
 
-1. **Push all files to GitHub** (same as above)
+1. **Push all files to GitHub** (including updated `vercel.json`)
 
 2. Go to [vercel.com](https://vercel.com) → Sign up with GitHub
 
@@ -83,11 +83,21 @@ If you prefer Vercel:
 
 4. Select your repository
 
-5. **Framework Preset:** Select "Vite"
+5. **Configure settings:**
+   - Framework Preset: **Vite**
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
 
 6. Click "Deploy"
 
-7. Wait for build to complete
+7. If you get "No Output Directory named 'dist' found" error:
+   - Go to Project Settings → General → Build & Development Settings
+   - Click "Override" on Output Directory
+   - Enter: `dist`
+   - Save and redeploy
+
+8. Wait for build to complete
 
 ---
 
